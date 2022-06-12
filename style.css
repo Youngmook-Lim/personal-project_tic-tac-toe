@@ -9,26 +9,36 @@ html {
 }
 
 body {
-  position: relative;
-  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   font-size: 4rem;
+  gap: 3.2rem;
 }
 
-.container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.main {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.gameboard {
+  width: 40rem;
+  height: 40rem;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   border: 1px solid black;
 }
 
-.box {
+.field {
   border: 1px solid black;
-  width: 10rem;
-  height: 10rem;
+  /* width: 10rem;
+  height: 10rem; */
   display: flex;
   justify-content: center;
   align-items: center;
