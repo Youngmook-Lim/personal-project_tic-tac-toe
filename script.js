@@ -43,6 +43,22 @@ const displayController = (() => {
     })
   );
 
+  fieldEl.forEach((el) => {
+    el.addEventListener("mouseenter", (e) => {
+      if (gameController.getIsOver() || e.target.textContent !== "") return;
+      gameController.getCurrentSign() === "X"
+        ? el.classList.add("hover-primary")
+        : el.classList.add("hover-secondary");
+    });
+
+    el.addEventListener("mouseleave", (e) => {
+      if (gameController.getIsOver() || e.target.textContent !== "") return;
+      gameController.getCurrentSign() === "X"
+        ? el.classList.remove("hover-primary")
+        : el.classList.remove("hover-secondary");
+    });
+  });
+
   restartBtn.addEventListener("click", () => {
     gameController.reset();
     gameBoard.reset();
@@ -144,5 +160,5 @@ const gameController = (() => {
     round = 1;
   };
 
-  return { playRound, getIsOver, reset };
+  return { playRound, getIsOver, reset, getCurrentSign };
 })();

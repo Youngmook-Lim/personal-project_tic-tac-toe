@@ -11,10 +11,12 @@
 :root {
   --primary-color: #d00000;
   --secondary-color: #ffba08;
+  --primary-color-dim: rgba(208, 0, 0, 0.15);
+  --secondary-color-dim: rgba(255, 185, 8, 0.15);
   --other-colors-1: #3f88c5;
   --other-colors-2: #032b43;
   --other-colors-3: #136f63;
-  --font-color-1: #333;
+  --font-color-1: #222;
   --font-color-2: #dee2e6;
   --background-color: #e9ecef;
   --font: "Visitor", sans-serif;
@@ -33,9 +35,10 @@ html {
 body {
   font-size: 5.2rem;
   gap: 3.2rem;
-  color: var(--font-color);
+  color: var(--font-color-1);
   background-color: var(--background-color);
   font-family: var(--font);
+  margin-bottom: 4.8rem;
 }
 
 .header {
@@ -49,15 +52,13 @@ body {
   font-size: 8.6rem;
 }
 
-.main {
-  /* margin: 0 auto; */
-  /* padding: 0 20px; */
-}
-
 .message {
   text-align: center;
   font-size: 5.2rem;
   padding: 3.2rem 0;
+  display: flex;
+  justify-content: center;
+  color: var(--other-colors-2);
 }
 
 .gameboard {
@@ -77,12 +78,13 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 0.2s;
 }
 
 .center {
   display: flex;
   justify-content: center;
-  padding: 3.2rem 0;
+  padding: 4.8rem 0 9.6rem 0;
 }
 
 .restart-button {
@@ -91,8 +93,38 @@ body {
   border: none;
   cursor: pointer;
   outline: none;
-  background-color: var(--other-colors-1);
+  background-color: var(--other-colors-2);
   color: var(--font-color-2);
   padding: 2.4rem;
   border-radius: 9px;
+}
+
+.footer {
+  grid-column: 1 / -1;
+  justify-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  /* padding: 20px; */
+  font-size: 2rem;
+}
+
+.fa-github {
+  color: #3d5467;
+  font-size: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.fa-github:hover {
+  transform: rotate(360deg) scale(1.2);
+}
+
+.hover-primary {
+  background-color: var(--primary-color-dim);
+}
+
+.hover-secondary {
+  background-color: var(--secondary-color-dim);
 }
