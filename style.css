@@ -1,3 +1,25 @@
+/* - Font-sizes (px):
+10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+- SPACING SYSTEM (px)
+2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128 */
+
+@font-face {
+  font-family: Visitor;
+  src: url(fonts/visitor1.ttf);
+}
+
+:root {
+  --primary-color: #d00000;
+  --secondary-color: #ffba08;
+  --other-colors-1: #3f88c5;
+  --other-colors-2: #032b43;
+  --other-colors-3: #136f63;
+  --font-color-1: #333;
+  --font-color-2: #dee2e6;
+  --background-color: #e9ecef;
+  --font: "Visitor", sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,21 +31,33 @@ html {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 4rem;
+  font-size: 5.2rem;
   gap: 3.2rem;
+  color: var(--font-color);
+  background-color: var(--background-color);
+  font-family: var(--font);
+}
+
+.header {
+  padding: 2.4rem 0;
+  background-color: var(--other-colors-3);
+}
+
+.title {
+  text-align: center;
+  color: var(--font-color-2);
+  font-size: 8.6rem;
 }
 
 .main {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 3.2rem;
+  /* margin: 0 auto; */
+  /* padding: 0 20px; */
+}
+
+.message {
+  text-align: center;
+  font-size: 5.2rem;
+  padding: 3.2rem 0;
 }
 
 .gameboard {
@@ -33,6 +67,7 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   border: 1px solid black;
+  margin: 0 auto;
 }
 
 .field {
@@ -42,4 +77,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  padding: 3.2rem 0;
+}
+
+.restart-button {
+  font-family: inherit;
+  font-size: inherit;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  background-color: var(--other-colors-1);
+  color: var(--font-color-2);
+  padding: 2.4rem;
+  border-radius: 9px;
 }

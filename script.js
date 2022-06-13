@@ -39,6 +39,7 @@ const displayController = (() => {
       if (gameController.getIsOver() || e.target.textContent !== "") return;
       gameController.playRound(+e.target.dataset.index);
       updateGameboard();
+      setFieldColor(e.target);
     })
   );
 
@@ -46,6 +47,7 @@ const displayController = (() => {
     gameController.reset();
     gameBoard.reset();
     updateGameboard();
+    resetFieldColor();
     setMessageEl("Player X's turn");
   });
 
@@ -65,6 +67,23 @@ const displayController = (() => {
     } else {
       setMessageEl(`Player ${sign} has won!`);
     }
+  };
+
+  const setFieldColor = (el) => {
+    const color =
+      el.textContent === "X" ? "--primary-color" : "--secondary-color";
+    el.style.backgroundColor = getComputedStyle(
+      document.documentElement
+    ).getPropertyValue(color);
+  };
+
+  const resetFieldColor = () => {
+    fieldEl.forEach(
+      (el) =>
+        (el.style.backgroundColor = getComputedStyle(
+          document.documentElement
+        ).getPropertyValue("--background-color"))
+    );
   };
 
   return { setResultMessage, setMessageEl };
