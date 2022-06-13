@@ -7,7 +7,7 @@ const Player = (sign) => {
   return { getSign };
 };
 
-const gameBoard = (() => {
+const gameBoard = (function () {
   const board = ["", "", "", "", "", "", "", "", ""];
 
   const setField = (index, sign) => {
@@ -30,44 +30,44 @@ const gameBoard = (() => {
 })();
 
 const displayController = (() => {
-  const fieldEl = document.querySelectorAll(".field");
-  const messageEl = document.querySelector(".message");
-  const restartBtn = document.querySelector(".restart-button");
+  const fieldElements = document.querySelectorAll(".field");
+  const messageElement = document.querySelector(".message");
+  const restartButton = document.querySelector(".restart-button");
 
-  fieldEl.forEach((el) =>
-    el.addEventListener("click", (e) => {
+  fieldElements.forEach((field) => {
+    field.addEventListener("click", (e) => {
       if (gameController.getIsOver() || e.target.textContent !== "") return;
       gameController.playRound(+e.target.dataset.index);
       updateGameboard();
-    })
-  );
-
-  restartBtn.addEventListener("click", () => {
-    gameController.reset();
-    gameBoard.reset();
-    updateGameboard();
-    setMessageEl("Player X's turn");
+    });
   });
 
-  const setMessageEl = (message) => {
-    messageEl.textContent = message;
-  };
+  restartButton.addEventListener("click", (e) => {
+    gameBoard.reset();
+    gameController.reset();
+    updateGameboard();
+    setMessageElement("Player X's turn");
+  });
 
   const updateGameboard = () => {
-    for (let i = 0; i < fieldEl.length; i++) {
-      fieldEl[i].textContent = gameBoard.getField(i);
+    for (let i = 0; i < fieldElements.length; i++) {
+      fieldElements[i].textContent = gameBoard.getField(i);
     }
   };
 
-  const setResultMessage = (sign) => {
-    if (sign === "Draw") {
-      setMessageEl("It is a draw!");
+  const setResultMessage = (winner) => {
+    if (winner === "Draw") {
+      setMessageElement("It's a draw!");
     } else {
-      setMessageEl(`Player ${sign} has won!`);
+      setMessageElement(`Player ${winner} has won!`);
     }
   };
 
-  return { setResultMessage, setMessageEl };
+  const setMessageElement = (message) => {
+    messageElement.textContent = message;
+  };
+
+  return { setResultMessage, setMessageElement };
 })();
 
 const gameController = (() => {
@@ -78,9 +78,9 @@ const gameController = (() => {
   let isOver = false;
 
   const playRound = (fieldIndex) => {
-    gameBoard.setField(fieldIndex, getCurrentSign());
+    gameBoard.setField(fieldIndex, getCurrentPlayerSign());
     if (checkWinner(fieldIndex)) {
-      displayController.setResultMessage(getCurrentSign());
+      displayController.setResultMessage(getCurrentPlayerSign());
       isOver = true;
       return;
     }
@@ -90,15 +90,13 @@ const gameController = (() => {
       return;
     }
     round++;
-    displayController.setMessageEl(`Player ${getCurrentSign()}'s turn`);
+    displayController.setMessageElement(
+      `Player ${getCurrentPlayerSign()}'s turn`
+    );
   };
 
-  const getIsOver = () => {
-    return isOver;
-  };
-
-  const getCurrentSign = () => {
-    return round % 2 == 1 ? playerX.getSign() : playerO.getSign();
+  const getCurrentPlayerSign = () => {
+    return round % 2 === 1 ? playerX.getSign() : playerO.getSign();
   };
 
   const checkWinner = (fieldIndex) => {
@@ -115,14 +113,20 @@ const gameController = (() => {
 
     return winConditions
       .filter((combo) => combo.includes(fieldIndex))
-      .some((combo) =>
-        combo.every((index) => gameBoard.getField(index) === getCurrentSign())
+      .some((possibleCombo) =>
+        possibleCombo.every(
+          (index) => gameBoard.getField(index) === getCurrentPlayerSign()
+        )
       );
   };
 
+  const getIsOver = () => {
+    return isOver;
+  };
+
   const reset = () => {
-    isOver = false;
     round = 1;
+    isOver = false;
   };
 
   return { playRound, getIsOver, reset };
