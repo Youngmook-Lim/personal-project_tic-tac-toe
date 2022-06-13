@@ -44,6 +44,7 @@ body {
 .header {
   padding: 2.4rem 0;
   background-color: var(--other-colors-3);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 4px;
 }
 
 .title {
