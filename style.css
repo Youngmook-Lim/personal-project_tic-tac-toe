@@ -68,18 +68,19 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  border: 1px solid black;
+  border: 2px solid var(--other-colors-2);
   margin: 0 auto;
 }
 
 .field {
-  border: 1px solid black;
+  border: 2px solid var(--other-colors-2);
   /* width: 10rem;
   height: 10rem; */
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 0.2s;
+  cursor: pointer;
 }
 
 .center {
