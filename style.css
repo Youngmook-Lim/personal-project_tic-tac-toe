@@ -123,6 +123,14 @@ body {
   transform: rotate(360deg) scale(1.2);
 }
 
+.clicked-primary {
+  background-color: var(--primary-color);
+}
+
+.clicked-secondary {
+  background-color: var(--secondary-color);
+}
+
 .hover-primary {
   background-color: var(--primary-color-dim);
 }

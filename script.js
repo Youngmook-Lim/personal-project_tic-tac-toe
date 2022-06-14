@@ -37,6 +37,7 @@ const displayController = (() => {
   fieldEl.forEach((el) =>
     el.addEventListener("click", (e) => {
       if (gameController.getIsOver() || e.target.textContent !== "") return;
+      removeHoverClass(e.target, "X");
       gameController.playRound(+e.target.dataset.index);
       updateGameboard();
       setFieldColor(e.target);
@@ -46,16 +47,12 @@ const displayController = (() => {
   fieldEl.forEach((el) => {
     el.addEventListener("mouseenter", (e) => {
       if (gameController.getIsOver() || e.target.textContent !== "") return;
-      gameController.getCurrentSign() === "X"
-        ? el.classList.add("hover-primary")
-        : el.classList.add("hover-secondary");
+      addHoverClass(e.target, "X");
     });
 
     el.addEventListener("mouseleave", (e) => {
       if (gameController.getIsOver() || e.target.textContent !== "") return;
-      gameController.getCurrentSign() === "X"
-        ? el.classList.remove("hover-primary")
-        : el.classList.remove("hover-secondary");
+      removeHoverClass(e.target, "X");
     });
   });
 
@@ -66,6 +63,18 @@ const displayController = (() => {
     resetFieldColor();
     setMessageEl("Player X's turn");
   });
+
+  const addHoverClass = (el, sign) => {
+    gameController.getCurrentSign() === sign
+      ? el.classList.add("hover-primary")
+      : el.classList.add("hover-secondary");
+  };
+
+  const removeHoverClass = (el, sign) => {
+    gameController.getCurrentSign() === sign
+      ? el.classList.remove("hover-primary")
+      : el.classList.remove("hover-secondary");
+  };
 
   const setMessageEl = (message) => {
     messageEl.textContent = message;
@@ -86,20 +95,16 @@ const displayController = (() => {
   };
 
   const setFieldColor = (el) => {
-    const color =
-      el.textContent === "X" ? "--primary-color" : "--secondary-color";
-    el.style.backgroundColor = getComputedStyle(
-      document.documentElement
-    ).getPropertyValue(color);
+    el.textContent === "X"
+      ? el.classList.add("clicked-primary")
+      : el.classList.add("clicked-secondary");
   };
 
   const resetFieldColor = () => {
-    fieldEl.forEach(
-      (el) =>
-        (el.style.backgroundColor = getComputedStyle(
-          document.documentElement
-        ).getPropertyValue("--background-color"))
-    );
+    fieldEl.forEach((el) => {
+      el.classList.remove("clicked-primary");
+      el.classList.remove("clicked-secondary");
+    });
   };
 
   return { setResultMessage, setMessageEl };
